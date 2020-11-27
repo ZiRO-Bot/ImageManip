@@ -32,5 +32,18 @@ def red(img: bytes):
     im.paste(red, mask=red)
     return save_image(im)
 
+def polaroid(img: bytes, fixed: bool=True):
+    if fixed is True:
+        w, h = (401, 401)
+        img = bytes2image(img).resize((w, h), 1)
+    else:
+        img = bytes2image(img)
+        w, h = img.size
+    W, H = (w+29, h+29)
+    blank = Image.new("RGBA", (W, H+80), color=(255,255,255,255))
+    blank.paste(img, (round(round(W-w)/2),round(round(H-h)/2)))
+    final = blank
+    return save_image(final)
+
 # img = Image.open("./TERM_010.png")
 # red(img)
