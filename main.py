@@ -30,4 +30,5 @@ def red():
     img = imagemanip.red(src)
     return Response(response=img, headers={"Content-Type": "image/png"})
 
-app.run(debug = True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
