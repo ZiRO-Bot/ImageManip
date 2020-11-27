@@ -21,14 +21,23 @@ def save_image(img: Image) -> BytesIO:
 
 def invert(img: bytes):
     img = bytes2image(img)
-    im = img.resize((400, 400), 1)
-    inverted = ImageOps.invert(im)
-    return save_image(im)
+    img = img.resize((400, 400), 1)
+    if img.mode == "RGBA":
+        r,g,b,a = img.split()
+        rgb_img = Image.merge("RGB", (r,g,b))
+        inverted = ImageOps.invert(rgb_img)
+        r2,g2,b2 = inverted.split()
+        final = Image.merge('RGBA', (r2,g2,b2,a))
+    else:
+        im = img.resize((400, 400), 1)
+        final = ImageOps.invert(im)
+    return save_image(final)
 
 def red(img: bytes):
     img = bytes2image(img)
     im = img.resize((400, 400), 1)
-    red = Image.new("RGBA", (400, 400), color=(255, 0, 0, 120))
+    w, h = im.size
+    red = Image.new("RGBA", (w, h), color=(255, 0, 0, 120))
     im.paste(red, mask=red)
     return save_image(im)
 
