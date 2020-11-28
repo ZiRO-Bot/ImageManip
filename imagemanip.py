@@ -32,6 +32,17 @@ def red(img: bytes):
     im.paste(red, mask=red)
     return save_image(im)
 
+def sad(img: bytes):
+    img = bytes2image(img)
+    im = img.resize((400, 400), 1)
+    w, h = im.size
+    raindrop = Image.open("assets/raindrops.png")
+    raindrop = raindrop.convert("RGBA")
+    darken = Image.new("RGBA", (w, h), color=(0, 0, 0, 100))
+    im.paste(darken, mask=darken)
+    im.paste(raindrop, mask=raindrop)
+    return save_image(im)
+
 def polaroid(img: bytes, fixed: bool=True):
     if fixed is True:
         w, h = (401, 401)

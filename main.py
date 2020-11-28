@@ -40,5 +40,13 @@ def polaroid():
     img = imagemanip.polaroid(src, fixed=fixed)
     return Response(response=img, headers={"Content-Type": "image/png"})
 
+@app.route("/sad", methods=["GET"])
+def sad():
+    _url = request.args.get("url")
+    test = requests.get(str(_url))
+    src = test.content
+    img = imagemanip.sad(src)
+    return Response(response=img, headers={"Content-Type": "image/png"})
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
