@@ -3,7 +3,7 @@ name = "ImageManip"
 version = "0.0.1"
 description = "Image Manipulation using Pillow"
 authors = ["null2264"]
-license = "Public Domain"
+license = "Unlicense"
 
 [tool.poetry.dependencies]
 python = "^3.9"
