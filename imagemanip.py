@@ -84,6 +84,10 @@ def triggered(imgByte: bytes) -> BytesIO:
         canvas.paste(img, (x, y))
         red = Image.new("RGBA", (400, 400), color=(255, 0, 0, 80))
         canvas.paste(red, mask=red)
+        # Add triggered thingy
+        trig: Image.Image = Image.open("assets/triggered.png")
+        trig = trig.convert("RGBA")
+        canvas.paste(trig, mask=trig)
         frames.append(canvas)
     byteArray = BytesIO()
     frames[0].save(
