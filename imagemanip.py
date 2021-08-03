@@ -86,6 +86,13 @@ def triggered(imgByte: bytes) -> BytesIO:
         canvas.paste(red, mask=red)
         frames.append(canvas)
     byteArray = BytesIO()
-    frames[0].save(byteArray, format="GIF", save_all=True, loop=0, append_images=frames)
+    frames[0].save(
+        byteArray,
+        format="GIF",
+        save_all=True,
+        duration=60,
+        loop=0,
+        append_images=frames,
+    )
     byteArray.seek(0)
     return byteArray
