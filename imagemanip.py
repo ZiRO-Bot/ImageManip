@@ -64,8 +64,8 @@ def sad(img_bytes: bytes) -> BytesIO:
     return image2bytes(im)
 
 
-def blurplify(imgByte: bytes) -> BytesIO:
-    img: Image.Image = bytes2image(imgByte)
+def blurplify(img_bytes: bytes) -> BytesIO:
+    img: Image.Image = bytes2image(img_bytes)
     img = img.resize((400, 400), 1)
     w, h = img.size
     blurple = Image.new("RGBA", (w, h), color=(88, 101, 242, 160))
@@ -73,8 +73,8 @@ def blurplify(imgByte: bytes) -> BytesIO:
     return image2bytes(img)
 
 
-def triggered(imgByte: bytes) -> BytesIO:
-    img = bytes2image(imgByte)
+def triggered(img_bytes: bytes) -> BytesIO:
+    img = bytes2image(img_bytes)
     img = img.resize((500, 500), 1)
     frames: List[Image.Image] = []
     for _frame in range(30):
@@ -100,3 +100,12 @@ def triggered(imgByte: bytes) -> BytesIO:
     )
     byteArray.seek(0)
     return byteArray
+
+
+if __name__ == "__main__":
+    with open("origin.png", "rb") as in_:
+        imgBytes = in_.read()
+        changed = triggered(imgBytes)
+
+    with open("changed.gif", "wb") as out_:
+        out_.write(changed.read())
