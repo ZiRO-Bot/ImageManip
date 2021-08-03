@@ -72,8 +72,32 @@ def sad():
         return "Where's the image? D:<"
 
     return Response(
-        response=manipulate(_url, "polaroid"),
+        response=manipulate(_url, "sad"),
         headers={"Content-Type": "image/png"},
+    )
+
+
+@app.route("/blurplify", methods=["GET"])
+def blurplify():
+    _url = request.args.get("url")
+    if _url is None:
+        return "Where's the image? D:<"
+
+    return Response(
+        response=manipulate(_url, "blurplify"),
+        headers={"Content-Type": "image/png"},
+    )
+
+
+@app.route("/triggered", methods=["GET"])
+def triggered():
+    _url = request.args.get("url")
+    if _url is None:
+        return "Where's the image? D:<"
+
+    return Response(
+        response=manipulate(_url, "triggered"),
+        headers={"Content-Type": "image/gif"},
     )
 
 
