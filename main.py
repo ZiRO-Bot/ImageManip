@@ -104,11 +104,18 @@ def triggered():
 @app.route("/blur", methods=["GET"])
 def blur():
     _url = request.args.get("url")
+    fixed = request.args.get("fixed", "false")
+    is_fixed = True
+    if fixed.lower() in ENABLED_SYMBOLS:
+        is_fixed = True
+    if fixed.lower() in DISABLED_SYMBOLS:
+        is_fixed = False
+
     if _url is None:
         return "Where's the image? D:<"
 
     return Response(
-        response=manipulate(_url, "blur"),
+        response=manipulate(_url, "blur", fixed=is_fixed),
         headers={"Content-Type": "image/png"},
     )
 
