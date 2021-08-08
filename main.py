@@ -49,7 +49,7 @@ def red():
 @app.route("/polaroid", methods=["GET"])
 def polaroid():
     _url = request.args.get("url")
-    fixed = request.args.get("fixed", "false")
+    fixed = request.args.get("fixed", "on")
     is_fixed = True
     if fixed.lower() in ENABLED_SYMBOLS:
         is_fixed = True
@@ -104,7 +104,7 @@ def triggered():
 @app.route("/blur", methods=["GET"])
 def blur():
     _url = request.args.get("url")
-    fixed = request.args.get("fixed", "false")
+    fixed = request.args.get("fixed", "on")
     is_fixed = True
     if fixed.lower() in ENABLED_SYMBOLS:
         is_fixed = True
