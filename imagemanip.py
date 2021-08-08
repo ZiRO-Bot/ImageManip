@@ -104,7 +104,7 @@ def triggered(img_bytes: bytes) -> BytesIO:
 
 def blur(img_bytes: bytes, fixed: bool = True) -> BytesIO:
     img = bytes2image(img_bytes)
-    if bool:
+    if fixed:
         img = img.resize((500, 500), 1)
     blur = ImageFilter.GaussianBlur(radius=20)
     img = img.filter(blur)
