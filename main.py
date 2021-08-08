@@ -101,5 +101,17 @@ def triggered():
     )
 
 
+@app.route("/blur", methods=["GET"])
+def blur():
+    _url = request.args.get("url")
+    if _url is None:
+        return "Where's the image? D:<"
+
+    return Response(
+        response=manipulate(_url, "blur"),
+        headers={"Content-Type": "image/png"},
+    )
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)

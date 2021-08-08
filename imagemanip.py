@@ -2,7 +2,7 @@ from io import BytesIO
 from random import randint
 from typing import List
 
-from PIL import Image, ImageOps, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError, ImageFilter
 
 
 def bytes2image(image: bytes) -> Image.Image:
@@ -102,10 +102,18 @@ def triggered(img_bytes: bytes) -> BytesIO:
     return byteArray
 
 
+def blur(img_bytes: bytes) -> BytesIO:
+    img = bytes2image(img_bytes)
+    img = img.resize((500, 500), 1)
+    blur = ImageFilter.GaussianBlur(radius=20)
+    img = img.filter(blur)
+    return image2bytes(img)
+
+
 if __name__ == "__main__":
     with open("origin.png", "rb") as in_:
         imgBytes = in_.read()
-        changed = triggered(imgBytes)
+        changed = blur(imgBytes)
 
-    with open("changed.gif", "wb") as out_:
+    with open("changed.png", "wb") as out_:
         out_.write(changed.read())
